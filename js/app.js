@@ -27,17 +27,32 @@ document.addEventListener('DOMContentLoaded', function(){
     btnReset.addEventListener('click', function(e){
         e.preventDefault();
 
-        email.email = '';
-        email.asunto = '';
-        email.mensaje = '';
-        formulario.reset();
-        comprobarEmail();
+        //reiniciar el obejto
+        resetFormulario();
     })
     function enviarEmail(e){
         e.preventDefault();
-        spinner.classList.add('flex');
-        
+        spinner.classList.add('flex');        
         spinner.classList.remove('hidden');
+
+        setTimeout(()=>{
+
+            spinner.classList.remove('flex');        
+            spinner.classList.add('hidden');
+
+              //reiniciar el obejto
+            resetFormulario()
+            //crear alerta
+
+            const alertaExito = document.createElement('P');
+            alertaExito.classList.add('bg-green-500', 'text-white', 'p-2', 'text-center', 'rounded-lg', 'mt-10', 'font-bold', 'text-sm,', 'uppercase');
+            alertaExito.textContent = 'Mensaje enviado correctamente';
+            formulario.appendChild(alertaExito);
+                setTimeout(() =>{
+                    alertaExito.remove()
+                },3000 );
+
+        }, 3000 )
 
     }
 
@@ -100,4 +115,14 @@ document.addEventListener('DOMContentLoaded', function(){
         btnSubmit.classList.remove('opacity-50');
         btnSubmit.disabled = false;
     }
-})
+
+    function resetFormulario(){
+        
+        email.email = '';
+        email.asunto = '';
+        email.mensaje = '';
+        formulario.reset();
+        comprobarEmail();
+    }
+
+});
